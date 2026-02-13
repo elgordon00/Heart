@@ -5,7 +5,7 @@ public class Heart : MonoBehaviour
 {
     GameObject[] spheres;
     static int numSphere = 100; 
-    float time = 3f;
+    float time = 10f;
     Vector3[] startPosition, endPosition;
      //public control;
    
@@ -54,7 +54,7 @@ public class Heart : MonoBehaviour
     void Update()
     {
         // Measure Time 
-        time += Time.deltaTime; // Time.deltaTime = The interval in seconds from the last frame to the current one
+        time += Time.deltaTime * 1.5f; // Time.deltaTime = The interval in seconds from the last frame to the current one
         // what to update over time?
         for (int i =0; i < numSphere; i++){
             // Lerp : Linearly interpolates between two points.
@@ -63,7 +63,7 @@ public class Heart : MonoBehaviour
             
             // lerpFraction variable defines the point between startPosition and endPosition (0~1)
             // let it oscillate over time using sin function
-            float lerpFraction = Mathf.Sin(time) * 0.5f + 0.5f;
+            float lerpFraction = Mathf.Sin(time) * 1f + 1f;
             // Lerp logic. Update position
             spheres[i].transform.position = Vector3.Lerp(startPosition[i], endPosition[i], lerpFraction);
             // For now, start positions and end positions are fixed. But what if you change it over time?
@@ -71,12 +71,13 @@ public class Heart : MonoBehaviour
 
             // Color Update over time
             Renderer sphereRenderer = spheres[i].GetComponent<Renderer>();
-            float saturation = 0.25f + 0.05f * Mathf.Sin(time); 
+            float saturation = 0.5f + 0.5f * Mathf.Sin(time); 
             
             float hue = (float)i / numSphere; // Hue cycles through 0 to 1
 
 
 Color color = Color.HSVToRGB(hue, saturation, 3f + Mathf.Cos(time));
+
          //  Color color = Color.HSVToRGB(Mathf.Abs(hue * Mathf.Sin(time)), Mathf.Cos(time), 2f + Mathf.Cos(time)); // Full saturation and brightness
         // Color color = Color.HSVToRGB(hue, .5f + Mathf.Cos(time), 4f + Mathf.Cos(time)); // Full saturation and brightness
           // control = Mathf.Cos(time) * 0.1f + 0.1f;
